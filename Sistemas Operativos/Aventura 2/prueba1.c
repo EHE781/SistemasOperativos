@@ -18,32 +18,30 @@ char* getpath (void) {
   return path;
 }
 char *path(void);
-int getTime ()
-{
-  time_t rawtime;
-  struct tm * timeinfo;
-
-  time ( &rawtime );
-  timeinfo = localtime ( &rawtime );
-  return timeinfo;
-}
-int getTime();
 
 char *read_line(char *line){
-    struct tm *timeinfo;
-    timeinfo = getTime();
-    printf(RED "uib" COLOR_RESET "@~" CYAN "[%s]/%s%c", asctime (timeinfo),getenv("PATH"),PROMPT);
+    printf(RED "uib" COLOR_RESET "@~" CYAN "[%s]/%s%c", /*asctime (timeinfo)*/"son las horas que son",getenv("PATH"),PROMPT);
 }
 char *read_line(char *line);
 
-
+void chomp( char *s )
+{
+    s[strcspn ( s, "\n" )] = '\0';
+}
+void chomp(char *s);
 int main() {
     char caracter = 'i';
-    struct tm *timeinfo;
-    timeinfo = getTime();
     while(caracter != 'e'){
+    time_t rawtime;
+    struct tm *info;
+    time( &rawtime );
+    info = localtime( &rawtime );
+    char *tiempo;
+    tiempo = asctime(info);
+    chomp(tiempo);
     char * dir = getpath();
-    printf(RED "uib" COLOR_RESET "@~" COLOR_RESET "/" MAGENTA "%s" YELLOW "%s" CYAN "%c ",getenv("HOME"),dir,PROMPT);    
+    printf(RED "uib" COLOR_RESET "@~/[%s]",tiempo);
+    printf(MAGENTA "::%s" YELLOW "%s" CYAN "%c ",getenv("HOME"),dir,PROMPT);    
     free(dir);
     scanf("%c",&caracter);
     }
